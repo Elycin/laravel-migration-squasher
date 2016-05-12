@@ -59,11 +59,11 @@ class SquashMigrations extends Command
     {
         return array(
             array('path', 'p', InputOption::VALUE_OPTIONAL, 'The path to the migrations folder',
-                'app/database/migrations'),
+                'database/migrations'),
             array('output', 'o', InputOption::VALUE_OPTIONAL, 'The path to the output folder of squashes',
-                'app/tests/migrations'),
+                'tests/migrations'),
             array('move-to', 'mv', InputOption::VALUE_OPTIONAL, 'The path where old migrations will be moved.',
-                'app/database/migrations')
+                'database/migrations')
         );
     }
 

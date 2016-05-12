@@ -1,16 +1,16 @@
-Aggregate your incremental Laravel migration files into single migration for each table. This can be beneficial when needing to compress large migration sets into a single migration for each table. 
+Aggregate your incremental Laravel migration files into single migration for each table. This can be beneficial when needing to compress large migration sets into a single migration for each table.
 
 This package also eliminates all alter columns since all migartions are aggregated into a single file making testing via sqlite a possibility.
 
 [![Build Status](https://travis-ci.org/Cytracom/laravel-migration-squasher.png)](https://travis-ci.org/Cytracom/laravel-migration-squasher)
 
-To install simply require 
+To install simply require
 ```
 "cytracom/squasher": "dev-master"
 ```
-Then, add the service provider to your app/config/app.php to enable artisan functionality:
+Then, add the service provider to your config/app.php to enable artisan functionality:
 ```
-'Cytracom\Squasher\SquasherServiceProvider'
+Cytracom\Squasher\SquasherServiceProvider::class
 ```
 NOTE: this is not required if you do not wish to have the commandline interface.  If you want to use the squasher just for testing, then you can ignore this service provider, and call the squasher directly.  This way, the squasher can be in your require-dev and not be a part of your production stack.
 
@@ -18,16 +18,16 @@ NOTE: this is not required if you do not wish to have the commandline interface.
 
 Commandline usage:
 ```
-php artisan migrate:squash [-p|--path[="..."]] [-o|--output[="..."]] [-mv|--move-to[="..."]]                                                      
-                                                                                                                                  
-Options:                                                                                                                 
- --path (-p)           The path to the migrations folder (default: "app/database/migrations")                             
- --output (-o)         The path to the output folder of squashes (default: "app/tests/migrations")
- --move-to (-mv)       The path where old migrations will be moved. (default: "app/database/migrations")      
+php artisan migrate:squash [-p|--path[="..."]] [-o|--output[="..."]] [-mv|--move-to[="..."]]
+
+Options:
+ --path (-p)           The path to the migrations folder (default: "database/migrations")
+ --output (-o)         The path to the output folder of squashes (default: "tests/migrations")
+ --move-to (-mv)       The path where old migrations will be moved. (default: "database/migrations")
 ```
 
 
-Usage in php: 
+Usage in php:
 ```php
 $squasher = new \Cytracom\Squasher\MigrationSquasher($pathToMigrations, $outputForSquashedMigrations [, $moveOldToThisPath = null]);
 $squasher->squash();
@@ -71,10 +71,10 @@ Here is how you can use this for your tests
 While setting up the test case, we run
 
 ```php
-recursiveDelete(base_path('app/tests/migrations'));
-$squash = new \Cytracom\Squasher\MigrationSquasher("app/database/migrations", "app/tests/migrations");
+recursiveDelete(base_path('tests/migrations'));
+$squash = new \Cytracom\Squasher\MigrationSquasher("database/migrations", "tests/migrations");
 $squash->squash();
-\Artisan::call('migrate', ['--path' => 'app/tests/migrations']);
+\Artisan::call('migrate', ['--path' => 'tests/migrations']);
 
 /**
  * Delete a file or recursively delete a directory
