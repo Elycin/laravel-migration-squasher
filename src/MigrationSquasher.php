@@ -145,7 +145,7 @@ class MigrationSquasher
                     $line, $matches1)
             ) {
                 $this->createColumnFromDbStatement($matches1);
-            }elseif(preg_match_all('/Schema::rename\((\'|")([^\'"]*)[^,]*,(\'|")([^\'"]*)/', $line, $matches3)){
+            }elseif(preg_match_all('/Schema::rename\((\'|")([^\'"]*)[^,]*,\s*(\'|")([^\'"]*)/', $line, $matches3)){
                 $name = $matches3[2][0];
                 $newName = $matches3[4][0];
                 $this->tables[$newName] = $this->tables[$name];
