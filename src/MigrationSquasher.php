@@ -368,22 +368,26 @@ class MigrationSquasher
         $sortedTables = [];
         $count = count($this->tables);
         while (count($sortedTables) !== $count) {
-            {
-                foreach ($this->tables as $table) {
-                    if (in_array($table->name, $sortedTables)) {
-                        continue;
-                    }
+            foreach ($this->tables as $table) {
+                if (in_array($table->name, $sortedTables)) {
+                    continue;
+                }
 
-                    $resolved = true;
-                    foreach ($table->getRelationships() as $relationship) {
-                        if (!in_array($relationship->relationshipTable, $sortedTables)) {
+                $resolved = true;
+                foreach ($table->getRelationships() as $relationship) {
+                    if (!in_array($relationship->relationshipTable, $sortedTables)) {
+                        echo "cannot resolve {$table->name}, depends on {$relationship->relationshipTable} \n";
+                        if ($relationship->relationshipTable == $table->name) {
+                            echo "Self dependency\n";
+                        } else {
                             $resolved = false;
                             break;
                         }
                     }
-                    if ($resolved) {
-                        array_push($sortedTables, $table->name);
-                    }
+                }
+                if ($resolved) {
+                    echo "resolved " . $table->name . PHP_EOL;
+                    array_push($sortedTables, $table->name);
                 }
             }
         }
