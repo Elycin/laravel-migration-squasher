@@ -243,6 +243,7 @@ class MigrationSquasher
             case 'timestamps' :
             case 'softDeletes' :
             case 'nullableTimestamps' :
+            case 'rememberToken' :
                 $segments[1] = $matches[0];
             case 'string' :
             case 'integer' :
@@ -256,6 +257,7 @@ class MigrationSquasher
             case 'boolean' :
             case 'date' :
             case 'dateTime' :
+            case 'datetime' :
             case 'time' :
             case 'timestamp' :
             case 'text' :
@@ -270,6 +272,14 @@ class MigrationSquasher
             case 'enum' :
                 $table->addColumn($this->createStandardColumn($matches, $segments, $line));
                 break;
+            case 'index' :
+            case 'dropUnique' :
+                echo "ERROR, cannot handle " . $matches[0] . PHP_EOL;
+                var_dump($segments);
+                break;
+            default:
+                echo "Unknown table operation: " . $matches[0] . PHP_EOL;
+                exit;
         }
         $matches = null;
     }
