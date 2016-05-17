@@ -87,6 +87,20 @@ class Table
     }
 
     /**
+     * Changes the given column name
+     *
+     * @param $oldName
+     * @param $newName
+     */
+    public function renameColumn($oldName, $newName)
+    {
+        if ($oldName != $newName) {
+            $this->columns[$newName] = $this->columns[$oldName];
+            unset($this->columns[$oldName]);
+        }
+    }
+
+    /**
      * Removes the column from the table.
      *
      * @param $columnName
@@ -221,4 +235,4 @@ class Table
     {
         return $this->primary;
     }
-} 
+}

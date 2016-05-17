@@ -222,7 +222,7 @@ class MigrationSquasher
                 $table->getColumn($segments[1])->unique = true;
                 break;
             case 'renameColumn':
-                $table->alterColumn($segments[1], "name", $segments[3]);
+                $table->renameColumn($segments[1], $segments[3]);
                 break;
             case 'foreign':
                 $table->addRelationship(new Relationship($segments[1], $segments[3], $segments[5]));
