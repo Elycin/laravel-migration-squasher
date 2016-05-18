@@ -1,12 +1,10 @@
 Aggregate your incremental Laravel migration files into single migration for each table. This can be beneficial when needing to compress large migration sets into a single migration for each table.
 
-This package also eliminates all alter columns since all migartions are aggregated into a single file making testing via sqlite a possibility.
+This package also eliminates all alter columns since all migrations are aggregated into a single file making testing via sqlite a possibility.
 
-[![Build Status](https://travis-ci.org/Cytracom/laravel-migration-squasher.png)](https://travis-ci.org/Cytracom/laravel-migration-squasher)
-
-To install simply require
+To install simply require this forked package:
 ```
-"cytracom/squasher": "dev-master"
+"orottier/laravel-migration-squasher": "~0.1"
 ```
 Then, add the service provider to your config/app.php to enable artisan functionality:
 ```
